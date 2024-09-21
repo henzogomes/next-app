@@ -3,7 +3,9 @@ import HelloWorld from '@/components/HelloWorld'
 const HelloWorldPage = () => {
   return (
     <main>
-      <HelloWorld />
+      <HelloWorld message="hello" data-test="true">
+        <i>children</i>
+      </HelloWorld>
     </main>
   )
 }
