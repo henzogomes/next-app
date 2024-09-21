@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
-import { query } from '../../lib/db' // Adjust the import path as needed
+import pgclient from '@/app/lib/pgclient'
 
 // Test the database connection
 export async function GET() {
   try {
-    const result = await query('SELECT NOW()') // A simple query to test the connection
-    return NextResponse.json({ success: true, time: result })
+    const result = await pgclient.query('SELECT NOW()')
+    return NextResponse.json({ success: true, time: result.rows[0] })
   } catch (error) {
     console.error(error)
     return NextResponse.json(

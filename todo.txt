@@ -1,0 +1,24 @@
+OK docker
+OK pgadmin
+OK pgclient
+OK migrations
+readme
+  docker
+  setup
+  migrations
+
+BACKEND
+userController
+  OK createUser
+  list user by uuid
+  list users (paginated)
+  delete user
+  update user by uuid
+auth
+
+FRONTEND
+  user profile
+    edit user
+  list users (paginated)
+  auth
+    login screen

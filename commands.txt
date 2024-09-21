@@ -1,0 +1,9 @@
+pnpm migrate create create_user_table
+
+pnpm migrate up
+pnpm migrate down
+
+#pgadmin
+localhost:8081
+pgadmin4@pgadmin.org
+admin
