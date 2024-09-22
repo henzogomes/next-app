@@ -12,7 +12,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   pgadmin:
-    container_name: pgadmin_container_openai_poc
+    container_name: pgadmin_container
     image: dpage/pgadmin4
     restart: always
     ports:

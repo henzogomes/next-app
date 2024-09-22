@@ -10,7 +10,10 @@ readme
 BACKEND
 userController
   OK createUser
+  OK validate user fields (trim, lowercase)
+  encrypt password
   list user by uuid
+    - validate uuid
   list users (paginated)
   delete user
   update user by uuid

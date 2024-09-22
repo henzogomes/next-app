@@ -5,9 +5,9 @@ export async function GET(request: Request) {
   const msg = searchParams.get('msg')
 
   if (msg) {
-    return NextResponse.json({ status: 200, message: msg })
+    return NextResponse.json({ message: msg }, { status: 200 })
   } else {
-    return NextResponse.json({ status: 400, message: 'message not found' })
+    return NextResponse.json({ message: 'message not found' }, { status: 400 })
   }
 }
 
@@ -18,14 +18,11 @@ export async function POST(request: Request) {
     const { msg } = body
 
     if (msg && msg === 'ok') {
-      return NextResponse.json({ status: 200, message: msg })
+      return NextResponse.json({ message: msg }, { status: 200 })
     } else {
-      return NextResponse.json({ status: 400, message: 'not ok' })
+      return NextResponse.json({ message: 'not ok' }, { status: 400 })
     }
   } catch (error) {
-    return NextResponse.json(
-      { error: `Invalid JSON ${error}` },
-      { status: 400 }
-    )
+    return NextResponse.json({ error: `Invalid JSON ${error}` }, { status: 400 })
   }
 }
