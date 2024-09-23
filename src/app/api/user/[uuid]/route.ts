@@ -15,5 +15,5 @@ export async function GET(request: Request, { params }: { params: { uuid: string
     return NextResponse.json({ message: 'User not found' }, { status: 404 })
   }
 
-  return NextResponse.json({ id: userId, message: 'User found', user: result.rows[0] })
+  return NextResponse.json({ id: userId, message: 'User deleted', user: result.rows[0] }, { status: 200 })
 }

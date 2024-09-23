@@ -49,4 +49,15 @@ export class UserController {
       throw new Error('Error fetching user: ' + (error as Error).message)
     }
   }
+
+  static async deleteUserById(uuid: string) {
+    const query = `DELETE FROM users
+                   WHERE uuid = $1`
+
+    try {
+      return await pgclient.query(query, [uuid])
+    } catch (error) {
+      throw new Error('Error deleting user: ' + (error as Error).message)
+    }
+  }
 }
