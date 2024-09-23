@@ -11,7 +11,7 @@ BACKEND
 userController
   OK createUser
   OK validate user fields (trim, lowercase)
-  encrypt password
+  OK encrypt password (bcrypt)
   list user by uuid
     - validate uuid
   list users (paginated)

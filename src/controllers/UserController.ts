@@ -1,5 +1,6 @@
 import pgclient from '@/app/lib/pgclient'
 import { v7 as uuidv7 } from 'uuid'
+import bcrypt from 'bcrypt'
 
 export interface UserProps {
   email: string
@@ -22,13 +23,20 @@ export class UserController {
   async createUser() {
     this.props.uuid = uuidv7()
 
+    const saltRounds = 10
+    const hashedPassword = await bcrypt.hash(this.props.password, saltRounds)
+
+    //temp compare password
+    const isPasswordValid = await bcrypt.compare(this.props.password, hashedPassword)
+    console.log(isPasswordValid)
+
     const query = `INSERT INTO users
-        (uuid, email, password)
-       VALUES ($1, $2, $3)
-       RETURNING id, uuid, email, created_at, updated_at`
+                    (uuid, email, password)
+                   VALUES ($1, $2, $3)
+                   RETURNING id, uuid, email, created_at, updated_at`
 
     try {
-      return await pgclient.query(query, [this.props.uuid, this.props.email, this.props.password])
+      return await pgclient.query(query, [this.props.uuid, this.props.email, hashedPassword])
     } catch (error: unknown) {
       throw new Error('Error creating user: ' + (error as Error).message)
     }

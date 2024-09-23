@@ -2,7 +2,7 @@ import { UserController } from '@/controllers/UserController'
 import { NextResponse } from 'next/server'
 import { validate as uuidValidate } from 'uuid'
 
-export async function GET(request: Request, { params }: { params: { uuid: string } }) {
+export async function GET({ params }: { params: { uuid: string } }) {
   const userId = params.uuid
 
   if (!userId || !uuidValidate(userId)) {
