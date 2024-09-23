@@ -26,10 +26,6 @@ export class UserController {
     const saltRounds = 10
     const hashedPassword = await bcrypt.hash(this.props.password, saltRounds)
 
-    //temp compare password
-    const isPasswordValid = await bcrypt.compare(this.props.password, hashedPassword)
-    console.log(isPasswordValid)
-
     const query = `INSERT INTO users
                     (uuid, email, password)
                    VALUES ($1, $2, $3)
@@ -67,5 +63,28 @@ export class UserController {
     } catch (error) {
       throw new Error('Error deleting user: ' + (error as Error).message)
     }
+  }
+
+  static async authenticateUser(email: string, password: string) {
+    const query = `SELECT uuid, email, password FROM users WHERE email = $1`
+    const result = await pgclient.query(query, [email.toLowerCase()])
+
+    if (result.rowCount === 0) {
+      return { success: false, message: 'Invalid email or password' }
+    }
+
+    const user = result.rows[0]
+
+    const isPasswordValid = await this.comparePasswords(password, user.password)
+
+    if (!isPasswordValid) {
+      return { success: false, message: 'Invalid email or password' }
+    }
+
+    return { success: true, user: { uuid: user.uuid, email: user.email } }
+  }
+
+  private static async comparePasswords(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword)
   }
 }
