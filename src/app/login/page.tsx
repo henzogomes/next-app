@@ -1,16 +1,19 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [success, setSuccess] = useState('')
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true) // Set submitting state
+    setIsSubmitting(true)
 
     try {
       const response = await fetch('/api/auth', {
@@ -22,17 +25,20 @@ const LoginPage = () => {
       })
 
       if (!response.ok) {
-        const errorData = await response.json() // Assuming your API returns JSON error responses
+        const errorData = await response.json()
         throw new Error(errorData.message || 'Login failed')
       }
 
-      // Handle successful login (e.g., redirect or save token)
-      console.log('Login successful')
-      // Optionally redirect or update state here
+      console.log('Login successful:', response)
+      setSuccess('Login successful!')
+      setError('')
+
+      router.push('/dashboard')
     } catch (err) {
       setError((err as Error).message)
+      setSuccess('')
     } finally {
-      setIsSubmitting(false) // Reset submitting state
+      setIsSubmitting(false)
     }
   }
 
@@ -43,6 +49,11 @@ const LoginPage = () => {
         {error && (
           <p className="text-red-500 text-sm text-center mb-4" aria-live="assertive">
             {error}
+          </p>
+        )}
+        {success && (
+          <p className="text-green-500 text-sm text-center mb-4" aria-live="assertive">
+            {success}
           </p>
         )}
         <form onSubmit={handleSubmit}>
@@ -74,7 +85,7 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
-            disabled={isSubmitting} // Disable button if submitting
+            disabled={isSubmitting}
             className={`w-full p-2 rounded-md transition duration-200 ${
               isSubmitting ? 'bg-gray-400' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
             }`}

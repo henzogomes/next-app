@@ -7,22 +7,171 @@
 	},
 	"item": [
 		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var uuid = require('uuid');",
+									"var v4UUID = uuid.v4();",
+									"console.log(v4UUID);",
+									"",
+									"pm.collectionVariables.set('v4UUID', v4UUID);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/user/create",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List user by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/user/:uuid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								":uuid"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "019216d5-fd7c-777f-b8f5-536d1557aa9e"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List user by id Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/user/delete/:uuid",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"delete",
+								":uuid"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "01921a83-5718-700a-824e-10366f276c8a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Status",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/status?msg=",
+					"raw": "{{host}}/api/status?msg=test",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"status"
 					],
 					"query": [
 						{
 							"key": "msg",
-							"value": ""
+							"value": "test"
 						}
 					]
 				}
@@ -35,18 +184,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/status?msg=",
+					"raw": "{{host}}/api/db",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"status"
-					],
-					"query": [
-						{
-							"key": "msg",
-							"value": ""
-						}
+						"api",
+						"db"
 					]
 				}
 			},
@@ -67,11 +211,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/status",
+					"raw": "{{host}}/api/status",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"status"
 					]
 				}
@@ -104,8 +249,12 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "localhost:3000/api",
+			"value": "localhost:3000",
 			"type": "string"
+		},
+		{
+			"key": "v4UUID",
+			"value": ""
 		}
 	]
 }

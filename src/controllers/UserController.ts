@@ -67,7 +67,7 @@ export class UserController {
 
   static async authenticateUser(email: string, password: string) {
     const query = `SELECT uuid, email, password FROM users WHERE email = $1`
-    const result = await pgclient.query(query, [email.toLowerCase()])
+    const result = await pgclient.query(query, [email.toLowerCase().trim()])
 
     if (result.rowCount === 0) {
       return { success: false, message: 'Invalid email or password' }

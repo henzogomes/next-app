@@ -12,16 +12,18 @@ userController
   OK createUser
   OK validate user fields (trim, lowercase)
   OK encrypt password (bcrypt)
-  list user by uuid
-    - validate uuid
+  OK list user by uuid
+    OK - validate uuid
   list users (paginated)
-  delete user
+  OK delete user
   update user by uuid
 auth
+  OK - jwt
+  - refresh token
 
 FRONTEND
   user profile
     edit user
   list users (paginated)
   auth
-    login screen
+    OK login screen
