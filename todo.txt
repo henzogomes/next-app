@@ -19,7 +19,16 @@ userController
   update user by uuid
 auth
   OK - jwt
-  - refresh token
+  OK - who am i
+  OK - session controller
+  OK - login
+  OK - logout
+  - refresh token?
+middleware
+  OK - public page routes
+  OK - protected page routes
+  OK - public api routes
+  OK - protected api routes
 
 FRONTEND
   user profile
@@ -27,3 +36,4 @@ FRONTEND
   list users (paginated)
   auth
     OK login screen
+    refactor login screen

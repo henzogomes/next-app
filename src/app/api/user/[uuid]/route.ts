@@ -2,7 +2,7 @@ import { UserController } from '@/controllers/UserController'
 import { NextResponse } from 'next/server'
 import { validate as uuidValidate } from 'uuid'
 
-export async function GET({ params }: { params: { uuid: string } }) {
+export async function GET(request: Request, { params }: { params: { uuid: string } }) {
   const userId = params.uuid
 
   if (!userId || !uuidValidate(userId)) {
@@ -15,5 +15,8 @@ export async function GET({ params }: { params: { uuid: string } }) {
     return NextResponse.json({ message: 'User not found' }, { status: 404 })
   }
 
-  return NextResponse.json({ id: userId, message: 'User deleted', user: result.rows[0] }, { status: 200 })
+  return NextResponse.json(
+    { id: userId, message: 'User retrieved', user: result.rows[0] },
+    { status: 200 }
+  )
 }
