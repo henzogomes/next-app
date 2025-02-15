@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Header from '@/components/Header' // Adjust the import path as needed
 
 interface UserPayload {
   uuid: string
@@ -59,8 +60,10 @@ const DashboardPage = () => {
   if (error) {
     return <p className="text-red-600">Error: {error}</p>
   }
+
   return (
     <div className="min-h-screen bg-gray-100">
+      <Header /> {/* Include the Header component here */}
       <main className="container mx-auto px-4 py-8">
         <div className="bg-white shadow-md rounded-lg p-6">
           {user ? (
