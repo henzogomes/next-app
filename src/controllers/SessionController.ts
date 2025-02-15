@@ -1,5 +1,5 @@
-import { SESSION_COOKIE } from '@/app/lib/constants'
-import { type userInfo, type SessionPayload } from '@/app/lib/types'
+import { SESSION_COOKIE } from '@/lib/constants'
+import { type userInfo, type SessionPayload } from '@/lib/types'
 import { jwtVerify, SignJWT } from 'jose'
 import { cookies } from 'next/headers'
 

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import pgclient from '@/app/lib/pgclient'
+import pgclient from '@/lib/pgclient'
 
 // Test the database connection
 export async function GET() {

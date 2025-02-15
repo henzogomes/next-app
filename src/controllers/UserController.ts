@@ -1,5 +1,5 @@
 // src/controllers/UserController.ts
-import pgclient from '@/app/lib/pgclient'
+import pgclient from '@/lib/pgclient'
 import { v7 as uuidv7 } from 'uuid'
 import bcrypt from 'bcrypt'
 import { User, Pagination } from '@/types'

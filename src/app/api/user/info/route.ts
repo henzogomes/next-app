@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import * as jose from 'jose'
-import { SESSION_COOKIE } from '@/app/lib/constants'
+import { SESSION_COOKIE } from '@/lib/constants'
 
 const JWT_SECRET = process.env.JWT_SECRET || ''
 

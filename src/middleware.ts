@@ -6,7 +6,7 @@ import {
   PROTECTED_PAGE_ROUTES,
   PUBLIC_API_ROUTES,
   PUBLIC_PAGE_ROUTES,
-} from '@/app/lib/constants'
+} from '@/lib/constants'
 
 const UNAUTHORIZED_STATUS = 401
 
