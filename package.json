@@ -9,7 +9,8 @@
     "lint": "next lint",
     "migrate": "node-pg-migrate",
     "generate:jwt": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
-    "postinstall": "pnpm migrate up"
+    "postinstall": "pnpm migrate up",
+    "initdb": "docker-compose up -d"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
