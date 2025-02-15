@@ -1,7 +1,9 @@
+// src/app/login/page.tsx
 'use client'
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/context/AuthContext'
 
 const LoginPage = () => {
   const [email, setEmail] = useState('')
@@ -10,6 +12,7 @@ const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [success, setSuccess] = useState('')
   const router = useRouter()
+  const { login } = useAuth() // Use the login function from AuthContext
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -33,6 +36,7 @@ const LoginPage = () => {
       setSuccess('Login successful!')
       setError('')
 
+      login() // Update the isLoggedIn state
       router.push('/dashboard')
     } catch (err) {
       setError((err as Error).message)
