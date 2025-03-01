@@ -13,13 +13,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: authResult.message }, { status: 401 })
     }
 
+    const user = authResult.user
+    if (!user || !user.uuid || !user.email) {
+      return NextResponse.json({ success: false, error: 'Invalid user data' }, { status: 400 })
+    }
+
     const session = await SessionController.createSession({
-      uuid: authResult.user?.uuid,
-      email: authResult.user?.email,
-      info: 'myInfo', //todo change
+      uuid: user.uuid,
+      email: user.email,
+      info: 'myInfo', // TODO: change
     })
 
-    return NextResponse.json({ success: true, user: authResult.user, session }, { status: 200 })
+    return NextResponse.json({ success: true, user, session }, { status: 200 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ success: false, error: 'Internal server error' }, { status: 500 })

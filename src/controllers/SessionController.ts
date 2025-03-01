@@ -12,6 +12,11 @@ if (!JWT_SECRET) {
 export class SessionController {
   static async createSession(user: userInfo) {
     const { uuid, email } = user
+
+    if (!uuid) {
+      throw new Error('User UUID is required to create a session')
+    }
+
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000) //1h
     const session = await this.encrypt({ uuid, email, expiresAt })
 
