@@ -9,14 +9,11 @@ export async function GET(request: Request, { params }: { params: { uuid: string
     return NextResponse.json({ message: 'Please provide a valid uuid' }, { status: 400 })
   }
 
-  const result = await UserController.listuserById(userId)
+  const user = await UserController.listuserById(userId)
 
-  if (result.rowCount === 0) {
+  if (!user) {
     return NextResponse.json({ message: 'User not found' }, { status: 404 })
   }
 
-  return NextResponse.json(
-    { id: userId, message: 'User retrieved', user: result.rows[0] },
-    { status: 200 }
-  )
+  return NextResponse.json({ id: userId, message: 'User retrieved', user }, { status: 200 })
 }

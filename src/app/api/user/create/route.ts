@@ -12,7 +12,7 @@ export async function POST(request: Request) {
 
     const result = await user.createUser()
 
-    return NextResponse.json({ success: true, user: result.rows[0] }, { status: 201 })
+    return NextResponse.json({ success: true, user: result }, { status: 201 })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ success: false, error }, { status: 500 })

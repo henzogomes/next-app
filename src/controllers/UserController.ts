@@ -46,7 +46,7 @@ export class UserController {
     }
   }
 
-  static async listuserById(uuid: string): Promise<User> {
+  static async listuserById(uuid: string): Promise<User | null> {
     const query = `
       SELECT id, uuid, email, created_at, updated_at
       FROM users
@@ -56,7 +56,7 @@ export class UserController {
     try {
       const result = await pgclient.query(query, [uuid])
       if (result.rowCount === 0) {
-        throw new Error('User not found')
+        return null
       }
       return result.rows[0] as User
     } catch (error) {
@@ -120,14 +120,15 @@ export class UserController {
     }
   }
 
-  static async deleteUserById(uuid: string): Promise<void> {
+  static async deleteUserById(uuid: string): Promise<{ rowCount: number }> {
     const query = `
       DELETE FROM users
       WHERE uuid = $1
     `
 
     try {
-      await pgclient.query(query, [uuid])
+      const result = await pgclient.query(query, [uuid])
+      return { rowCount: result.rowCount ?? 0 }
     } catch (error) {
       throw new Error('Error deleting user: ' + (error as Error).message)
     }
